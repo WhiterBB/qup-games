@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quality Games — ¿Aceptas el reto?</title>
+  <meta name="description" content="Quality Games by QualityUp: una competencia por equipos inspirada en los juegos más tensos. Reúne a tu equipo y regístrate.">
+  <meta name="theme-color" content="#0a0a0b">
+  <!-- TODO: replace with the final absolute URL once deployed (og:url, canonical, og:image must be absolute) -->
+  <link rel="canonical" href="https://example.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Quality Games — ¿Aceptas el reto?">
+  <meta property="og:description" content="Una competencia por equipos. Tres juegos. Un solo ganador.">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/assets/symbols-card.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0b'/%3E%3Cpath d='M44 40a16 16 0 1 0-24 0' fill='none' stroke='%23e8c68f' stroke-width='6'/%3E%3Crect x='28.5' y='30' width='7' height='22' rx='3.5' fill='%23ff5a00'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#registro">Ir al registro</a>
+
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Quality Games, inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M44 40a16 16 0 1 0-24 0" fill="none" stroke="currentColor" stroke-width="6"/><rect x="28.5" y="30" width="7" height="22" rx="3.5" fill="var(--orange)"/></svg>
+      <span>Quality Games</span>
+    </a>
+    <a class="btn btn--small" href="#registro">Registrar equipo</a>
+  </header>
+
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero__fog" aria-hidden="true"></div>
+      <svg class="hero__shapes" viewBox="0 0 900 280" aria-hidden="true" fill="none" stroke="var(--pink)" stroke-width="7" stroke-linejoin="round">
+        <circle class="draw" cx="150" cy="140" r="105"/>
+        <path class="draw" d="M450 35 L555 235 H345 Z"/>
+        <rect class="draw" x="640" y="35" width="210" height="210"/>
+      </svg>
+      <p class="eyebrow" data-fade>QualityUp presenta</p>
+      <h1 id="hero-title" class="display" data-masked-reveal>Quality Games</h1>
+      <p class="hero__sub" data-fade>Una competencia por equipos. Tres juegos. Un solo ganador.</p>
+      <a class="scroll-hint" href="#invitacion" data-fade>
+        <span>Desliza</span><i aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <!-- CHAPTER 1: INVITATION -->
+    <section class="chapter invite" id="invitacion" aria-labelledby="invite-title">
+      <div class="invite__stage">
+        <div class="invite__text">
+          <p class="chapter__no">Capítulo 01</p>
+          <h2 id="invite-title" class="title" data-masked-reveal>Recibiste una invitación</h2>
+          <p class="lead" data-fade>Sin remitente. Sin explicaciones. Solo una tarjeta con tres símbolos y una pregunta que no puedes ignorar.</p>
+        </div>
+        <div class="invite__card-wrap">
+          <img class="invite__card" src="assets/symbols-card.jpg" width="1536" height="1024" alt="Tarjeta de invitación de cartón con los símbolos círculo, triángulo y cuadrado de Quality Games" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 2: THE MASK -->
+    <section class="chapter mask" id="mascara" aria-labelledby="mask-title">
+      <div class="mask__media">
+        <img src="assets/mask.jpg" width="960" height="1100" alt="Figura con capucha roja y máscara negra perforada con el logo de Quality Games" loading="lazy">
+        <div class="mask__vignette" aria-hidden="true"></div>
+      </div>
+      <div class="mask__text">
+        <p class="chapter__no">Capítulo 02</p>
+        <h2 id="mask-title" class="title" data-masked-reveal>Alguien te observa</h2>
+        <p class="lead" data-fade>Detrás de la máscara hay un solo objetivo: poner a prueba lo mejor de tu equipo. Calidad, ingenio y sangre fría.</p>
+        <p class="lead" data-fade>Aquí no gana el más fuerte. Gana el que trabaja mejor con los suyos.</p>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>○ △ □ &nbsp; Quality Games &nbsp; ○ △ □ &nbsp; ¿Aceptas el reto? &nbsp; ○ △ □ &nbsp; Forma tu equipo &nbsp;</span>
+        <span>○ △ □ &nbsp; Quality Games &nbsp; ○ △ □ &nbsp; ¿Aceptas el reto? &nbsp; ○ △ □ &nbsp; Forma tu equipo &nbsp;</span>
+      </div>
+    </div>
+
+    <!-- CHAPTER 3: THE GAMES -->
+    <section class="chapter games" id="juegos" aria-labelledby="games-title">
+      <div class="games__pin">
+        <div class="games__head">
+          <p class="chapter__no">Capítulo 03</p>
+          <h2 id="games-title" class="title" data-masked-reveal>Tres pasos</h2>
+        </div>
+        <ol class="games__track">
+          <li class="game">
+            <svg viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="10"><circle cx="100" cy="100" r="80"/></svg>
+            <h3>Paso 1 · Inscríbete</h3>
+            <p>Reúne a tu equipo y completa el formulario de registro. Recibirás tu número de jugador.</p>
+          </li>
+          <li class="game">
+            <svg viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"><path d="M100 18 L184 172 H16 Z"/></svg>
+            <h3>Paso 2 · Participa</h3>
+            <p>Supera los retos junto a tu equipo. Cada prueba exige ingenio, rapidez y trabajo en conjunto.</p>
+          </li>
+          <li class="game">
+            <svg viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="10"><rect x="22" y="22" width="156" height="156"/></svg>
+            <h3>Paso 3 · Gana</h3>
+            <p>El equipo que domine todas las pruebas se lleva la victoria. Solo uno lo logra.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CHAPTER 4: RULES -->
+    <section class="chapter rules" id="reglas" aria-labelledby="rules-title">
+      <p class="chapter__no">Capítulo 04</p>
+      <h2 id="rules-title" class="title" data-masked-reveal>Las reglas</h2>
+      <ul class="rules__list">
+        <li data-fade><b>01</b><span>Se compite en equipos.</span></li>
+        <li data-fade><b>02</b><span>Un solo registro por equipo. El capitán completa el formulario.</span></li>
+        <li data-fade><b>03</b><span>Participa en las áreas de Matemática, Física y Química.</span></li>
+        <li data-fade><b>04</b><span>Los cupos son limitados. Quien llega tarde, queda eliminado.</span></li>
+      </ul>
+    </section>
+
+    <!-- FINAL: CTA -->
+    <section class="cta" id="registro" aria-labelledby="cta-title">
+      <div class="cta__glow" aria-hidden="true"></div>
+      <p class="chapter__no">Capítulo final</p>
+      <h2 id="cta-title" class="cta__title" data-masked-reveal>¿Aceptas el reto?</h2>
+
+      <div class="counter" role="status" aria-live="polite">
+        <p class="counter__num"><span id="teamCount" data-state="loading">---</span></p>
+        <p class="counter__label">equipos ya aceptaron <span id="capacityLabel"></span></p>
+      </div>
+      <ul class="tokens" id="tokens" aria-hidden="true"></ul>
+
+      <div class="cta__actions">
+        <button class="btn" id="openForm" type="button" aria-haspopup="dialog">Registrar mi equipo</button>
+        <a class="btn btn--ghost" id="formLink" href="#" target="_blank" rel="noopener">Abrir en Google Forms ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> QualityUp · Quality Games</p>
+  </footer>
+
+  <dialog class="modal" id="formModal" aria-labelledby="modalTitle">
+    <div class="modal__bar">
+      <h2 id="modalTitle">Registro de equipo</h2>
+      <button class="modal__close" type="button" id="closeForm" aria-label="Cerrar formulario">✕</button>
+    </div>
+    <iframe id="formFrame" title="Formulario de registro de equipos">Cargando…</iframe>
+    <div class="modal__done" id="formDone" hidden>
+      <svg viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="8"><circle cx="100" cy="100" r="80"/></svg>
+      <p class="modal__player" id="playerNo" tabindex="-1" role="status"></p>
+      <p class="modal__welcome">Te esperamos.</p>
+      <button class="btn" type="button" id="doneClose">Cerrar</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

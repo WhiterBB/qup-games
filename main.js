@@ -92,10 +92,12 @@ function initStory() {
     const dist = () => Math.max(0, track.scrollWidth - window.innerWidth + 120);
     gsap.to(track, { x: () => -dist(), ease: "none",
       scrollTrigger: { trigger: ".games__pin", start: "top top", end: () => "+=" + dist(),
-        pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true } });
+        pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1 } });
     return () => section.classList.remove("is-horizontal");
   });
 
+  // re-measure once images/fonts settle so later sections sit after the pin spacer
+  window.addEventListener("load", () => ScrollTrigger.refresh());
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
 }
 
@@ -176,26 +178,52 @@ function resetForm() {
   frame.src = CONFIG.FORM_EMBED_URL;
 }
 
-// A cross-origin iframe can't be inspected, but Google Forms navigates it after a
-// successful submit. Loads beyond the form's own pages (FORM_PAGES) = submitted.
+// A cross-origin iframe can't be inspected, so a page load alone can't tell "Next"
+// from "Submit". Extra loads only trigger a check: a submit counts when the live
+// team count (Apps Script) goes above the count recorded when the modal opened.
+let baseline = 0;
+
+async function fetchCount() {
+  if (!CONFIG.COUNT_ENDPOINT) return null;
+  try {
+    const res = await fetch(CONFIG.COUNT_ENDPOINT, { cache: "no-store" });
+    const data = await res.json();
+    return typeof data.count === "number" ? data.count : null;
+  } catch (e) { return null; }
+}
+
+function showSubmitted(n) {
+  submitted = true;
+  renderCount(n);
+  playerNo.textContent = "Jugador " + String(n).padStart(3, "0") + " ha sido inscrito";
+  frame.hidden = true;
+  done.hidden = false;
+  playerNo.focus();
+}
+
+async function checkSubmitted() {
+  if (!CONFIG.COUNT_ENDPOINT) { // no way to verify: fall back to page-load counting
+    if (frameLoads > CONFIG.FORM_PAGES) showSubmitted(shown + 1);
+    return;
+  }
+  for (let i = 0; i < 4 && !submitted; i++) {
+    const n = await fetchCount();
+    if (submitted) return;
+    if (n !== null && n > baseline) return showSubmitted(n);
+    await new Promise((r) => setTimeout(r, 2000));
+  }
+}
+
 frame.addEventListener("load", () => {
   if (!frame.getAttribute("src") || submitted) return;
   frameLoads++;
-  if (frameLoads > CONFIG.FORM_PAGES) {
-    submitted = true;
-    const n = shown + 1; // optimistic: last known count + this team
-    renderCount(n);
-    playerNo.textContent = "Jugador " + String(n).padStart(3, "0") + " ha sido inscrito";
-    frame.hidden = true;
-    done.hidden = false;
-    playerNo.focus();
-  }
+  if (frameLoads > 1) checkSubmitted(); // load 1 is the form itself
 });
 
 document.getElementById("openForm").addEventListener("click", () => {
   if (CONFIG.FORM_EMBED_URL) {
     if (!frame.getAttribute("src") || submitted) resetForm();
-    loadCount(); // make sure "shown" is current before a possible submit
+    fetchCount().then((n) => { if (n !== null) baseline = n; });
     modal.showModal();
   } else if (CONFIG.FORM_URL) {
     window.open(CONFIG.FORM_URL, "_blank", "noopener");
@@ -204,5 +232,28 @@ document.getElementById("openForm").addEventListener("click", () => {
 document.getElementById("closeForm").addEventListener("click", () => modal.close());
 document.getElementById("doneClose").addEventListener("click", () => modal.close());
 modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); });
+
+/* ---------------- anchor links ---------------- */
+// Native anchor jumps/smooth scroll get confused by the pinned games section
+// (its spacer is added after layout), landing on an empty gap. Scroll manually.
+document.querySelectorAll('a[href^="#"]').forEach((a) => {
+  const id = a.getAttribute("href");
+  if (id.length < 2) return;
+  a.addEventListener("click", (e) => {
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    if (!reduceMotion) ScrollTrigger.refresh(true);
+    const go = () => {
+      const top = target.getBoundingClientRect().top + window.scrollY;
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo(0, top);
+      document.documentElement.style.scrollBehavior = "";
+    };
+    go();
+    requestAnimationFrame(() => requestAnimationFrame(go)); // correct after layout settles
+    history.replaceState(null, "", id);
+  });
+});
 
 document.getElementById("year").textContent = new Date().getFullYear();
